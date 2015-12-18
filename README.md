@@ -18,3 +18,12 @@ people to gather them, to have some basic buildings that give bonus's(house to i
 food prod, etc).
 
 If I can get these features implemented to a satisfactory level, I will consider adding more features.
+
+##Update 1
+So far I have made it so that a map can be generated at random and saved to a file.
+The map can be loaded from said file and displayed on screen.
+A tilesheet is used to get images for the different tiles. The tilesheet is one file and each of the tiles is
+taken from that file.
+
+![alt tag](images/map1.PNG)
+![alt tag](images/map2.PNG)
