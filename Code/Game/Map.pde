@@ -19,12 +19,11 @@ class Map {
   public void loadMap(String mapName) {
     
     String[] rows = loadStrings(mapName);//String array to hold the rows in the map file
-    String[] row = split(rows[1],",");
+    String[] row = split(rows[1],",");//String array to get the width of the map
     
+    //Map width and height
     mapHeight = rows.length;
     mapWidth = row.length;
-    println(mapWidth);
-    
     
     for(int i = 0; i < rows.length; i++) {//Going through each row of file
       
@@ -45,6 +44,70 @@ class Map {
       
     }
       
+  }
+  
+  
+  //Function for randomly generating a map
+  public void generateMap(String mapName, int mHeight, int mWidth) {
+    
+    //Creating array to hold the map data
+    int[][] map = new int[mHeight][mWidth];
+    
+    //Initilising the map to empty space
+    for(int i = 0; i < mHeight; i++) {
+      for(int j = 0; j < mWidth; j++) {
+        map[i][j] = 0;
+      }
+    }
+    
+    //Getting the total number of tiles on map
+    int tiles = mHeight * mWidth;
+    
+    for(int i = 0; i < mHeight; i++) {
+      for(int j = 0; j < mWidth; j++) {
+        
+        int r = floor(random(tiles));
+        
+        //Prob of each tile
+        int grass = floor(tiles*0.5);
+        int forest = floor(tiles*0.25);
+        int mount = floor(tiles*0.2);
+        int iron = floor(tiles*0.04);
+        int gold = floor(tiles*0.01);
+        
+        if(r > 0 && r < gold) {
+          map[i][j] = 4;
+        }else if(r > gold && r < iron) {
+          map[i][j] = 3;
+        }else if(r > iron && r < mount) {
+          map[i][j] = 5;
+        }else if(r > mount && r < forest) {
+          map[i][j] = 2;
+        }else {
+          map[i][j] = 1;
+        }
+        
+      }
+    }
+    
+    //String array to hold the map
+    String[] lines = new String[mHeight];
+    
+    //Creating string to save as map
+    for(int i = 0; i < mHeight; i++) {
+      for(int j = 0; j < mWidth; j++) {
+        
+        if(j < mWidth-1) {
+          concat(lines[i], map[i][j]+",");
+        }else{
+          concat(lines[i], map[i][j]); 
+        }
+        
+      }
+    }
+    
+    //Saving map
+    saveStrings(mapName, lines);
   }
   
   public void render() {
