@@ -18,6 +18,9 @@ class Map {
   
   public void loadMap(String mapName) {
     
+    //Clearing the array list
+    tiles.clear();
+    
     String[] rows = loadStrings(mapName);//String array to hold the rows in the map file
     String[] row = split(rows[1],",");//String array to get the width of the map
     
@@ -93,14 +96,19 @@ class Map {
     //String array to hold the map
     String[] lines = new String[mHeight];
     
+    //Initilising the array to empty strings
+    for(int i = 0; i < lines.length; i++) {
+      lines[i] = "";
+    }
+    
     //Creating string to save as map
     for(int i = 0; i < mHeight; i++) {
       for(int j = 0; j < mWidth; j++) {
         
         if(j < mWidth-1) {
-          concat(lines[i], map[i][j]+",");
+          lines[i] += (map[i][j]+",");
         }else{
-          concat(lines[i], map[i][j]); 
+          lines[i] += map[i][j]; 
         }
         
       }

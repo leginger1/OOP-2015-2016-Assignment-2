@@ -25,5 +25,8 @@ The map can be loaded from said file and displayed on screen.
 A tilesheet is used to get images for the different tiles. The tilesheet is one file and each of the tiles is
 taken from that file.
 
-![alt tag](images/map1.PNG)
-![alt tag](images/map2.PNG)
+##Update 2
+During the week or two break over christmas I was re-thinking the game that im going to make. I have decided to 
+move away from the town building game idea a bit and go with a tower defence instead. However I am not completely
+forgetting about the town builder. I hope to try and bring some aspects of town building as a way of upgrading the
+towers and such. 
