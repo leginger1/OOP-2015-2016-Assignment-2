@@ -15,6 +15,10 @@ class Tile extends GameObject {
     this.tileVal = tileVal;
   }
   
+  public int getVal() {
+     return tileVal; 
+  }
+  
   public void setLayer(int layer) {
     this.layer = layer;
   }

@@ -9,6 +9,7 @@ class Map {
   private int mapWidth = 0;
   private int mapHeight = 0;
   
+  //Constructor loading in tilesheet
   Map() {
     TileSheet sheet = new TileSheet();
     sheet.loadSheet("tilesheets\\sheet.png");
@@ -16,6 +17,7 @@ class Map {
     t = sheet.getTileSheet();;
   }
   
+  //Loading the map from file
   public void loadMap(String mapName) {
     
     //Clearing the array list
@@ -50,51 +52,19 @@ class Map {
   }
   
   
-  //Function for randomly generating a map
-  public void generateMap(String mapName, int mHeight, int mWidth) {
+  //function for saving a map
+  public void saveMap(String mapName) {
     
-    //Creating array to hold the map data
-    int[][] map = new int[mHeight][mWidth];
+    int[][] map = new int[25][25];
     
-    //Initilising the map to empty space
-    for(int i = 0; i < mHeight; i++) {
-      for(int j = 0; j < mWidth; j++) {
-        map[i][j] = 0;
-      }
-    }
-    
-    //Getting the total number of tiles on map
-    int tiles = mHeight * mWidth;
-    
-    for(int i = 0; i < mHeight; i++) {
-      for(int j = 0; j < mWidth; j++) {
-        
-        int r = floor(random(tiles));
-        
-        //Prob of each tile
-        int grass = floor(tiles*0.5);
-        int forest = floor(tiles*0.25);
-        int mount = floor(tiles*0.2);
-        int iron = floor(tiles*0.04);
-        int gold = floor(tiles*0.01);
-        
-        if(r > 0 && r < gold) {
-          map[i][j] = 4;
-        }else if(r > gold && r < iron) {
-          map[i][j] = 3;
-        }else if(r > iron && r < mount) {
-          map[i][j] = 5;
-        }else if(r > mount && r < forest) {
-          map[i][j] = 2;
-        }else {
-          map[i][j] = 1;
-        }
-        
+    for(int i = 0; i < 25; i++) {
+      for(int j = 0; j < 25; j++) {
+        map[i][j] = tiles.get((25*i)+j).getVal();
       }
     }
     
     //String array to hold the map
-    String[] lines = new String[mHeight];
+    String[] lines = new String[25];
     
     //Initilising the array to empty strings
     for(int i = 0; i < lines.length; i++) {
@@ -102,10 +72,10 @@ class Map {
     }
     
     //Creating string to save as map
-    for(int i = 0; i < mHeight; i++) {
-      for(int j = 0; j < mWidth; j++) {
+    for(int i = 0; i < 25; i++) {
+      for(int j = 0; j < 25; j++) {
         
-        if(j < mWidth-1) {
+        if(j < 25-1) {
           lines[i] += (map[i][j]+",");
         }else{
           lines[i] += map[i][j]; 
@@ -114,10 +84,12 @@ class Map {
       }
     }
     
-    //Saving map
+    //Saving map as text file
     saveStrings(mapName, lines);
   }
   
+  
+  //Displaying the map on the screen
   public void render() {
       for(int i = 0; i < tiles.size(); i++){
         tiles.get(i).update(t,i, mapWidth, mapHeight);
