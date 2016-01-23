@@ -1,7 +1,7 @@
 //Class for towers
 class Tower {
   
-  private int tID;
+  private float rof; 
   
   //Constructor
   Tower() {

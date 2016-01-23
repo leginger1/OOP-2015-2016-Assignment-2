@@ -29,6 +29,7 @@ class Map {
     //Map width and height
     mapHeight = rows.length;
     mapWidth = row.length;
+    int tileNum = 0;
     
     for(int i = 0; i < rows.length; i++) {//Going through each row of file
       
@@ -38,13 +39,14 @@ class Map {
         
         int tileVal = parseInt(cols[j]);//Converting strings to ints
         
-        Tile tile = new Tile();//Creating new tile
+        Tile tile = new Tile(tileNum);//Creating new tile
         //Setting the value and layer of tile
         tile.setVal(tileVal);
         tile.setSheet(t);
         tile.setLayer(0);
         //Adding the tile to array list
         tiles.add(tile);
+        tileNum ++;
       }
       
     }
@@ -92,7 +94,7 @@ class Map {
   //Displaying the map on the screen
   public void render() {
       for(int i = 0; i < tiles.size(); i++){
-        tiles.get(i).update(t,i, mapWidth, mapHeight);
+        tiles.get(i).update();
         tiles.get(i).render();
       }
   }

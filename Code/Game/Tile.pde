@@ -6,10 +6,16 @@
 class Tile extends GameObject {
   
   private ArrayList<PImage> tiles;
+  private int tileNum;
   private int tileVal = 0;
   private int layer = 0;
   private int x = 0;
   private int y = 0;
+  
+  Tile(int tileNum) {
+    super(0,0);
+    this.tileNum = tileNum;
+  }
   
   public void setVal(int tileVal) {
     this.tileVal = tileVal;
@@ -23,22 +29,21 @@ class Tile extends GameObject {
     this.layer = layer;
   }
   
-  public void setSheet(ArrayList<PImage> tiles){
+  public void setSheet(ArrayList<PImage> tiles) {
     this.tiles = tiles;
   }
   
-  public void update(ArrayList<PImage> tiles,int tileNum, int mapWidth, int mapHeight) {
-    this.tiles = tiles;
-    x = (tileNum%mapWidth) * 20;
-    y = (tileNum/mapWidth) * 20;
-    //super.pos.add(x,y);
+  public void update() {
+    x = (tileNum%25) * 20;
+    y = (floor(tileNum/25)) * 20;
   }
   
   public void render() {
  
     pushMatrix();
     translate(x, y);
-    image(tiles.get(tileVal), super.pos.x, super.pos.y);
+    rotate(super.theta);
+    image(tiles.get(tileVal), 0f, 0f);
     popMatrix();
   }
 }

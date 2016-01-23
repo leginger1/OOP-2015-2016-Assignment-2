@@ -2,25 +2,27 @@
   The base class that every object on the screen will extend
 */
 
-class GameObject {
-  
-  private PVector pos;//Position on screen
+abstract class GameObject
+{
+  private PVector pos;
+  private PVector forward;
   private float theta = 0.0f;
-  private float w;
-  private float h; 
+  private float speed = 5.0f; 
  
-  GameObject() {
-    this(0, 0);  
+  GameObject()
+  {
+    // Constructor chaining
+    this(width * 0.5f, height  * 0.5f);     
   }
   
-  GameObject(float x, float y) {
-    
+  GameObject(float x, float y)
+  {
     pos = new PVector(x, y);
+    forward = new PVector(0, -1);
+    this.theta = 0.0f;
   }
   
-  
-  public void update() {}
-  
-  public void render() {}
+  abstract void update();  
+  abstract void render();
   
 }
