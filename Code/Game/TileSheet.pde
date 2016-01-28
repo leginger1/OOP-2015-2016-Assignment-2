@@ -4,19 +4,19 @@
 
 class TileSheet {
   
-  private ArrayList<PImage> tiles = new ArrayList<PImage>();//Array List to hold all of the tile images
-  private PImage sheet;//Image object to hold the tile sheet
+  ArrayList<PImage> tiles = new ArrayList<PImage>();//Array List to hold all of the tile images
+  PImage sheet;//Image object to hold the tile sheet
   
   
   //Loading in the tile sheet
-  public void loadSheet(String sheetName) {
+  void loadSheet(String sheetName) {
     sheet = loadImage(sheetName);
     loadTiles();
   }
   
   
   //Loading in the tiles
-  private void loadTiles() {
+  void loadTiles() {
     
     //PImage object to hold tiles and add to arraylist
     PImage tile;
@@ -35,7 +35,7 @@ class TileSheet {
     }
   }
   
-  public ArrayList<PImage> getTileSheet() {
+  ArrayList<PImage> getTileSheet() {
     return tiles;
   }
   

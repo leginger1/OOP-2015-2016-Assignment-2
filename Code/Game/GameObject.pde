@@ -4,10 +4,9 @@
 
 abstract class GameObject
 {
-  private PVector pos;
-  private PVector forward;
-  private float theta = 0.0f;
-  private float speed = 5.0f; 
+  PVector pos,vel,target,acc;
+  float theta = 0.0f;
+  float speed = 5.0f; 
  
   GameObject()
   {
@@ -18,7 +17,8 @@ abstract class GameObject
   GameObject(float x, float y)
   {
     pos = new PVector(x, y);
-    forward = new PVector(0, -1);
+    vel = new PVector(0, 0);
+    target = new PVector(0,0);
     this.theta = 0.0f;
   }
   

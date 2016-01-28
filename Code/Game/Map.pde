@@ -3,11 +3,11 @@
 */
 class Map {
   
-  private ArrayList<Tile> tiles = new ArrayList<Tile>();
-  private ArrayList<PImage> t;
+  ArrayList<Tile> tiles = new ArrayList<Tile>();
+  ArrayList<PImage> t;
   
-  private int mapWidth = 0;
-  private int mapHeight = 0;
+  int mapWidth = 0;
+  int mapHeight = 0;
   
   //Constructor loading in tilesheet
   Map() {
@@ -18,7 +18,7 @@ class Map {
   }
   
   //Loading the map from file
-  public void loadMap(String mapName) {
+  void loadMap(String mapName) {
     
     //Clearing the array list
     tiles.clear();
@@ -55,7 +55,7 @@ class Map {
   
   
   //function for saving a map
-  public void saveMap(String mapName) {
+  void saveMap(String mapName) {
     
     int[][] map = new int[25][25];
     
@@ -92,7 +92,7 @@ class Map {
   
   
   //Displaying the map on the screen
-  public void render() {
+  void render() {
       for(int i = 0; i < tiles.size(); i++){
         tiles.get(i).update();
         tiles.get(i).render();
