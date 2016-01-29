@@ -21,13 +21,14 @@ void setup() {
 void draw() {
   background(255);
   m.render();
+  println(frameRate);
   
   for(int i = 0; i < go.size(); i++) {
     if(go.get(i) instanceof BasicCreep) { 
       go.get(i).update();
       go.get(i).render();
-      if(go.get(i).getHP() == 0) {
-        
+      if(((BasicCreep)go.get(i)).getHP() == 0) {
+        go.remove(i);
       }
     }
   }

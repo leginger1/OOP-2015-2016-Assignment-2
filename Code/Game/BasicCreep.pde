@@ -7,7 +7,7 @@ class BasicCreep extends Enemy{
     
     
     //Setting the stats for the creep
-    setSpeed(25);
+    setSpeed(5);
     setHealth(10);
     setArmor(1);
     

@@ -1,15 +1,13 @@
 //Class for enemys
 abstract class Enemy extends GameObject{
   
-  float hp;
-  float curHP;
-  float hpMod;
+  //Normal HP, HP with mod, HP mod
+  float hp, curHP, hpMod;
   
-  float speed;
-  float speedMod;
+  //
+  float speed, speedMod;
   
-  float armor;
-  float armorMod;
+  float armor, armorMod;
   
   ArrayList<PathPoint> path;
   int curPoint = 0;
@@ -26,10 +24,17 @@ abstract class Enemy extends GameObject{
   //Sets velocity vector to next point
   void nextPoint() {
     
-    if(path.size() == 0 || curPoint == path.size()-1) {
+    //Checks to see if arrraylist is empty
+    if(path.size() == 0) {
       return;
     } else {
-      curPoint++;
+      //Loops to start of list if at end
+      if(curPoint == path.size() - 1) {
+        curPoint = 0;
+      } else {
+        //Incrementing current point
+        curPoint++; 
+      }
     }
     
   }
@@ -37,10 +42,17 @@ abstract class Enemy extends GameObject{
   //sets velocity vector to previous point
   void prevPoint() {
     
-    if(path.size() == 0 || curPoint == 0) {
+    //Checks if the path arraylist is empty
+    if(path.size() == 0) {
       return;
     } else {
-     curPoint--;
+     //Loops to end of list if at start
+     if(curPoint == 0) {
+       curPoint = path.size() - 1;
+     } else {
+       //Decrements current path point
+       curPoint--;
+     }
     }
     
   }
