@@ -22,6 +22,11 @@ abstract class GameObject
     this.theta = 0.0f;
   }
   
+  void setTargetXY(float x, float y) {
+    target.x = x;
+    target.y = y;
+  }
+  
   abstract void update();  
   abstract void render();
   

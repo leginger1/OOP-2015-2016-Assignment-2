@@ -27,10 +27,14 @@ void setup() {
   }
   
   go.add(new BasicCreep(random(width),random(height), path1));
-  go.add(new BasicCreep(random(width),random(height), path2));
-  go.add(new BasicCreep(random(width),random(height), path3));
-  go.add(new BasicCreep(random(width),random(height), path4));
-  
+ // go.add(new BasicCreep(random(width),random(height), path2));
+  //go.add(new BasicCreep(random(width),random(height), path3));
+  //go.add(new BasicCreep(random(width),random(height), path4));
+  go.add(new BasicTower(width/2,height/2));
+  go.add(new BasicTower(random(width),random(height)));
+  go.add(new BasicTower(random(width),random(height)));
+  go.add(new BasicTower(random(width),random(height)));
+  go.add(new BasicTower(random(width),random(height)));
 }
 
 
@@ -45,6 +49,17 @@ void draw() {
       go.get(i).render();
       if(((BasicCreep)go.get(i)).getHP() == 0) {
         go.remove(i);
+      }
+    }else if(go.get(i) instanceof BasicTower) {
+      go.get(i).update();
+      go.get(i).render();
+      
+      for(int j = 0; j < go.size(); j++) {
+        if(go.get(j) instanceof BasicCreep) {
+          if(dist(go.get(i).pos.x,go.get(i).pos.y,go.get(j).pos.x,go.get(j).pos.y) <= ((Tower)go.get(i)).getRange()) {
+            go.get(i).setTargetXY(go.get(j).pos.x, go.get(j).pos.y);
+          }
+        }
       }
     }
   }

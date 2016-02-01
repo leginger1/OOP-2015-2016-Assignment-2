@@ -58,8 +58,11 @@ abstract class Enemy extends GameObject{
   }
   
   void move() {
-    target.x = path.get(curPoint).getX();
-    target.y = path.get(curPoint).getY();
+    
+    float x = path.get(curPoint).getX();
+    float y = path.get(curPoint).getY();
+    
+    setTargetXY(x,y);
     
     vel = PVector.sub(target,pos);
     

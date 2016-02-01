@@ -7,7 +7,7 @@ class BasicCreep extends Enemy{
     
     
     //Setting the stats for the creep
-    setSpeed(5);
+    setSpeed(3);
     setHealth(10);
     setArmor(1);
     
@@ -34,6 +34,8 @@ class BasicCreep extends Enemy{
     
     move();
     
+    theta = atan2(vel.y,vel.x) - HALF_PI;
+    
     vel.normalize();
     vel.mult(speed);
     
@@ -49,7 +51,9 @@ class BasicCreep extends Enemy{
     noStroke();
     fill(255,0,0);
     rectMode(CENTER);
-    rect(0f,0f,5,5);
+    rect(0f,0f,5,10);
+    fill(0);
+    rect(0f,5f,5,5);
     popMatrix();
   }
 }
