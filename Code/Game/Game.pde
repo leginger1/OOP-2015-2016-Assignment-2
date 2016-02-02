@@ -17,7 +17,8 @@ void setup() {
     path1.add(new PathPoint(random(width),random(height)));
   }
   
-  go.add(new BasicCreep(width,height,path1));
+  go.add(new BasicCreep(random(width),random(height),path1));
+  go.add(new BasicCreep(random(width),random(height),path1));
   
   go.add(new BasicTower(width/2,height/2));
 }
@@ -53,12 +54,18 @@ void draw() {
       current.update();
       current.render();
       
+      if (frameCount % (60/((Tower)current).curROF) == 0) {
+        ((Tower)current).hasShot = false;
+      }
+      
       for(int j = 0; j < go.size(); j++) {
         if(go.get(j) instanceof BasicCreep) {
+          
           GameObject other = go.get(j);
+          
           if(dist(current.pos.x,current.pos.y,other.pos.x,other.pos.y) <= ((Tower)current).getRange()) {
             current.setTargetXY(other.pos.x, other.pos.y);
-            ((Tower)current).shoot(current.pos.x,current.pos.y,other.pos.x,other.pos.y);
+            ((Tower)current).shoot(current.pos.x,current.pos.y,other.pos.x+(other.vel.x*5),other.pos.y+(other.vel.y*5));
           }
         }
       }
@@ -66,6 +73,9 @@ void draw() {
       GameObject current = go.get(i);
       current.update();
       current.render();
+      if ((current.pos.x < 0 || current.pos.x > width) && (current.pos.y < 0 || current.pos.y > height)) {
+        go.remove(current);
+      }
     }
   }
 }

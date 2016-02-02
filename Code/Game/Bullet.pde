@@ -2,13 +2,18 @@
 
 class Bullet extends GameObject implements Effect{
  
-  float dmg;
+  float dmg, range;
   
-  Bullet(float x, float y, float tx, float ty, float dmg) {
+  Bullet(float x, float y, float tx, float ty, float dmg, float range) {
     super(x,y);
     this.dmg = dmg;
+    this.range = range;
     target.x = tx;
     target.y = ty;
+    
+    vel = PVector.sub(target, pos);
+    vel.normalize();
+    vel.mult(20);
   }
   
   void applyTo(GameObject enemy) {
@@ -16,9 +21,6 @@ class Bullet extends GameObject implements Effect{
   }
   
   void update() {
-    vel = PVector.sub(target, pos);
-    vel.normalize();
-    vel.mult(50);
     
     pos.add(vel);
     

@@ -4,6 +4,7 @@ abstract class Tower extends GameObject{
   float rof, curROF, rofMod;
   float range, curRange, rangeMod;
   float dmg, curDMG, dmgMod;
+  boolean hasShot = false;
   
   Tower(float x, float y) {
     super(x,y);
@@ -73,8 +74,9 @@ abstract class Tower extends GameObject{
   }
   
   void shoot(float x,float y,float tx, float ty) {
-    if(frameCount % (60*curROF) == 0) {
-      go.add(new Bullet(x,y,tx,ty,curDMG));
+    if(hasShot == false) {
+      go.add(new Bullet(x,y,tx,ty,curDMG,curRange));
+      hasShot = true;
     }
   }
   
