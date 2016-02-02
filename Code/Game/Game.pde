@@ -1,7 +1,8 @@
 
 Map m;
 
-ArrayList<GameObject> go = new ArrayList<GameObject>();
+ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+
 ArrayList<PathPoint> path1 = new ArrayList<PathPoint>();
 ArrayList<PathPoint> path2 = new ArrayList<PathPoint>();
 ArrayList<PathPoint> path3 = new ArrayList<PathPoint>();
@@ -17,10 +18,10 @@ void setup() {
     path1.add(new PathPoint(random(width),random(height)));
   }
   
-  go.add(new BasicCreep(random(width),random(height),path1));
-  go.add(new BasicCreep(random(width),random(height),path1));
+  gameObjects.add(new BasicCreep(random(width),random(height),path1));
+  gameObjects.add(new BasicCreep(random(width),random(height),path1));
   
-  go.add(new BasicTower(width/2,height/2));
+  gameObjects.add(new BasicTower(width/2,height/2));
 }
 
 
@@ -28,53 +29,59 @@ void draw() {
   background(255);
   m.render();
   println(frameRate);
-  
-  for(int i = 0; i < go.size(); i++) {
-    if(go.get(i) instanceof BasicCreep) { 
-      go.get(i).update();
-      go.get(i).render();
+
+  //Going through every game object
+  for(int i = 0; i < gameObjects.size(); i++) {
+    //Checking for Enemy objects
+    if(gameObjects.get(i) instanceof Enemy) {
+      //Holder for enemy object
+      GameObject enemy = gameObjects.get(i);
       
-      for(int j = 0; j < go.size(); j++) {
-        if (go.get(j) instanceof Bullet) {
-          GameObject current = go.get(i);
-          GameObject other = go.get(j);
+      //Updating and rendering
+      enemy.update();
+      enemy.render();
+      
+      //Going through every game object
+      for(int j = 0; j < gameObjects.size(); j++) {
+        
+        //Checking if bullet object
+        if (gameObjects.get(j) instanceof Bullet) {
           
-          if (current.pos.dist(other.pos) < 5) {
-            ((Effect) other).applyTo(current);
-            go.remove(other);
+          GameObject bullet = gameObjects.get(j);
+          
+          bullet.update();
+          bullet.render();
+          
+          if (enemy.pos.dist(bullet.pos) < 5) {
+            ((Effect) bullet).applyTo(enemy);
+            gameObjects.remove(bullet);
           }
         }
       }
       
-      if(((BasicCreep)go.get(i)).getHP() == 0) {
-        go.remove(i);
+      if(((BasicCreep)gameObjects.get(i)).getHP() == 0) {
+        gameObjects.remove(i);
       }
-    }else if(go.get(i) instanceof BasicTower) {
-      GameObject current = go.get(i);
-      current.update();
-      current.render();
+    }else if(gameObjects.get(i) instanceof BasicTower) {
+      GameObject tower = gameObjects.get(i);
+      tower.update();
+      tower.render();
       
-      if (frameCount % (60/((Tower)current).curROF) == 0) {
-        ((Tower)current).hasShot = false;
+      if (frameCount % (60/((Tower)tower).curROF) == 0) {
+        ((Tower)tower).hasShot = false;
       }
       
-      for(int j = 0; j < go.size(); j++) {
-        if(go.get(j) instanceof BasicCreep) {
+      for(int j = 0; j < gameObjects.size(); j++) {
+        if(gameObjects.get(j) instanceof BasicCreep) {
           
-          GameObject other = go.get(j);
+          GameObject enemy = gameObjects.get(j);
           
-          if(dist(current.pos.x,current.pos.y,other.pos.x,other.pos.y) <= ((Tower)current).getRange()) {
-            current.setTargetXY(other.pos.x, other.pos.y);
-            ((Tower)current).shoot(current.pos.x,current.pos.y,other.pos.x+(other.vel.x*5),other.pos.y+(other.vel.y*5));
+          if(dist(tower.pos.x,tower.pos.y,enemy.pos.x,enemy.pos.y) <= ((Tower)tower).getRange()) {
+            ((Tower)tower).shoot(tower.pos.x,tower.pos.y,enemy.pos.x+(enemy.vel.x*4),enemy.pos.y+(enemy.vel.y*4));
+            tower.setTarget(enemy.pos.x+(enemy.vel.x*4),enemy.pos.y+(enemy.vel.y*4));
+            break;
           }
         }
-      }
-    } else if (go.get(i) instanceof Bullet) {
-      GameObject current = go.get(i);
-      current.update();
-      current.render();
-      if ((current.pos.x < 0 || current.pos.x > width) && (current.pos.y < 0 || current.pos.y > height)) {
-        go.remove(current);
       }
     }
   }

@@ -47,6 +47,7 @@ class BasicCreep extends Enemy{
   void render() {
     pushMatrix();
     translate(pos.x, pos.y);
+    displayHealth();
     rotate(theta);
     noStroke();
     fill(255,0,0);

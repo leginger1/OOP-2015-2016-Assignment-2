@@ -2,12 +2,18 @@
 
 class Bullet extends GameObject implements Effect{
  
-  float dmg, range;
+  float dmg, range, speed;
   
-  Bullet(float x, float y, float tx, float ty, float dmg, float range) {
+  Bullet(float x, float y, float tx, float ty, float dmg, float range, float speed) {
+    //Calling GameObject constructor
     super(x,y);
+    
+    //Disambiguating varaibles
     this.dmg = dmg;
     this.range = range;
+    this.speed = speed;
+    
+    //Setting the target for the bullet
     target.x = tx;
     target.y = ty;
     

@@ -7,7 +7,7 @@ class BasicTower extends Tower{
     
     //Setting the rate of fire of the tower
     setROF(1);
-    setROFMod(1);
+    setROFMod(10);
     
     //Setting the range of the tower
     setRange(1000);
@@ -26,7 +26,7 @@ class BasicTower extends Tower{
     pushMatrix();
     translate(pos.x, pos.y);
     stroke(0);
-    //line(0,0,vel.x,vel.y);
+    line(0,0,vel.x,vel.y);
     rotate(theta);
     noStroke();
     fill(255,0,0);

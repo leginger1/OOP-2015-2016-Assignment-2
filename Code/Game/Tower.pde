@@ -4,12 +4,14 @@ abstract class Tower extends GameObject{
   float rof, curROF, rofMod;
   float range, curRange, rangeMod;
   float dmg, curDMG, dmgMod;
+  float bSpeed;
   boolean hasShot = false;
   
   Tower(float x, float y) {
     super(x,y);
     
     rof = curROF = rofMod = range = curRange = rangeMod = dmg = curDMG = dmgMod = 1;
+    bSpeed = 20;
   }
   
   //ROF Functions
@@ -75,7 +77,7 @@ abstract class Tower extends GameObject{
   
   void shoot(float x,float y,float tx, float ty) {
     if(hasShot == false) {
-      go.add(new Bullet(x,y,tx,ty,curDMG,curRange));
+      gameObjects.add(new Bullet(x,y,tx,ty,curDMG,curRange,bSpeed));
       hasShot = true;
     }
   }

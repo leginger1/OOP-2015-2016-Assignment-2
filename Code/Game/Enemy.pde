@@ -62,7 +62,7 @@ abstract class Enemy extends GameObject{
     float x = path.get(curPoint).getX();
     float y = path.get(curPoint).getY();
     
-    setTargetXY(x,y);
+    setTarget(x,y);
     
     vel = PVector.sub(target,pos);
     
@@ -93,6 +93,17 @@ abstract class Enemy extends GameObject{
   //Returns cur health
   float getHealth() {
    return curHP;  
+  }
+  
+  void displayHealth() {
+     float barWidth = 10;
+     float barHeight = 3;
+     float x = map(curHP, 0, hp, 0, barWidth);
+     rectMode(CENTER);
+     fill(0);
+     rect(0,12,barWidth,barHeight);
+     fill(0,255,0);
+     rect(0,12,x,barHeight);
   }
  
   
