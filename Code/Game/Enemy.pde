@@ -79,13 +79,13 @@ abstract class Enemy extends GameObject{
   }
   
   //Applying damage to the enemy
-  void damage(int dmg) {
+  void damage(float dmg) {
     curHP -= dmg;
     if(curHP < 0) curHP = 0;
   }
   
   //Applying healing to the enemy
-  void heal(int h) {
+  void heal(float h) {
     curHP += h;
     if(curHP > (hp*hpMod)) curHP = (hp*hpMod);
   }

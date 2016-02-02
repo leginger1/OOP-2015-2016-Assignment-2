@@ -72,6 +72,12 @@ abstract class Tower extends GameObject{
     theta = atan2(vel.y,vel.x) + HALF_PI;
   }
   
+  void shoot(float x,float y,float tx, float ty) {
+    if(frameCount % (60*curROF) == 0) {
+      go.add(new Bullet(x,y,tx,ty,curDMG));
+    }
+  }
+  
   abstract void update();
   abstract void render();
 }

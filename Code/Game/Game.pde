@@ -14,27 +14,12 @@ void setup() {
   m.loadMap("maps\\map1.txt");
   
   for(int i = 0; i < 100; i++) {
-    path1.add(new PathPoint(random(width/4,width-width/4),random(height/4, height-height/4)));
-  }
-  for(int i = 0; i < 100; i++) {
-    path2.add(new PathPoint(random(width/4,width-width/4),random(height/4, height-height/4)));
-  }
-  for(int i = 0; i < 100; i++) {
-    path3.add(new PathPoint(random(width/4,width-width/4),random(height/4, height-height/4)));
-  }
-  for(int i = 0; i < 100; i++) {
-    path4.add(new PathPoint(random(width/4,width-width/4),random(height/4, height-height/4)));
+    path1.add(new PathPoint(random(width),random(height)));
   }
   
-  go.add(new BasicCreep(random(width),random(height), path1));
- // go.add(new BasicCreep(random(width),random(height), path2));
-  //go.add(new BasicCreep(random(width),random(height), path3));
-  //go.add(new BasicCreep(random(width),random(height), path4));
+  go.add(new BasicCreep(width,height,path1));
+  
   go.add(new BasicTower(width/2,height/2));
-  go.add(new BasicTower(random(width),random(height)));
-  go.add(new BasicTower(random(width),random(height)));
-  go.add(new BasicTower(random(width),random(height)));
-  go.add(new BasicTower(random(width),random(height)));
 }
 
 
@@ -47,20 +32,40 @@ void draw() {
     if(go.get(i) instanceof BasicCreep) { 
       go.get(i).update();
       go.get(i).render();
+      
+      for(int j = 0; j < go.size(); j++) {
+        if (go.get(j) instanceof Bullet) {
+          GameObject current = go.get(i);
+          GameObject other = go.get(j);
+          
+          if (current.pos.dist(other.pos) < 5) {
+            ((Effect) other).applyTo(current);
+            go.remove(other);
+          }
+        }
+      }
+      
       if(((BasicCreep)go.get(i)).getHP() == 0) {
         go.remove(i);
       }
     }else if(go.get(i) instanceof BasicTower) {
-      go.get(i).update();
-      go.get(i).render();
+      GameObject current = go.get(i);
+      current.update();
+      current.render();
       
       for(int j = 0; j < go.size(); j++) {
         if(go.get(j) instanceof BasicCreep) {
-          if(dist(go.get(i).pos.x,go.get(i).pos.y,go.get(j).pos.x,go.get(j).pos.y) <= ((Tower)go.get(i)).getRange()) {
-            go.get(i).setTargetXY(go.get(j).pos.x, go.get(j).pos.y);
+          GameObject other = go.get(j);
+          if(dist(current.pos.x,current.pos.y,other.pos.x,other.pos.y) <= ((Tower)current).getRange()) {
+            current.setTargetXY(other.pos.x, other.pos.y);
+            ((Tower)current).shoot(current.pos.x,current.pos.y,other.pos.x,other.pos.y);
           }
         }
       }
+    } else if (go.get(i) instanceof Bullet) {
+      GameObject current = go.get(i);
+      current.update();
+      current.render();
     }
   }
 }
