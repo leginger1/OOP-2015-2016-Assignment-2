@@ -4,6 +4,7 @@
 class Map {
   
   ArrayList<Tile> tiles = new ArrayList<Tile>();
+  ArrayList<PathPoint> path = new ArrayList<PathPoint>();
   ArrayList<PImage> t;
   
   int mapWidth = 0;
@@ -15,6 +16,11 @@ class Map {
     sheet.loadSheet("tilesheets\\sheet.png");
     sheet.loadTiles();
     t = sheet.getTileSheet();;
+  }
+  
+  //Getting the path from the map
+  ArrayList<PathPoint> getPath() {
+    return path; 
   }
   
   //Loading the map from file
@@ -33,13 +39,16 @@ class Map {
     
     for(int i = 0; i < rows.length; i++) {//Going through each row of file
       
-      String[] cols = split(rows[i],",");//Getting each element(tile) in each row
- 
+      String[] cols = split(rows[i],"|");//Getting each element(tile) in each row
+      
       for(int j = 0; j < cols.length; j++) {//Adding each tile to array list
         
-        int tileVal = parseInt(cols[j]);//Converting strings to ints
+        String[] data = split(cols[j],",");
         
-        Tile tile = new Tile(tileNum);//Creating new tile
+        int tileVal = parseInt(data[0]);//Converting strings to ints
+        boolean pathPoint = parseBoolean(data[1]);//Converting string to boolean
+        
+        Tile tile = new Tile(tileNum,pathPoint);//Creating new tile
         //Setting the value and layer of tile
         tile.setVal(tileVal);
         tile.setSheet(t);
@@ -94,7 +103,12 @@ class Map {
   //Displaying the map on the screen
   void render() {
       for(int i = 0; i < tiles.size(); i++){
-        tiles.get(i).update();
+        Tile t = tiles.get(i);
+        t.update();
+        if (t.getPP()) {
+          PathPoint p = new PathPoint(t.pos.x,t.pos.y);
+          path.add(p);
+        }
         tiles.get(i).render();
       }
   }

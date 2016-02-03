@@ -10,7 +10,7 @@ class BasicTower extends Tower{
     setROFMod(10);
     
     //Setting the range of the tower
-    setRange(1000);
+    setRange(100);
     setRangeMod(1);
     
     //Setting the damage of the tower

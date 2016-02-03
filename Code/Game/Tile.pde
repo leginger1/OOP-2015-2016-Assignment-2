@@ -12,9 +12,12 @@ class Tile extends GameObject {
   int x = 0;
   int y = 0;
   
-  Tile(int tileNum) {
+  boolean pathPoint;
+  
+  Tile(int tileNum, boolean pathPoint) {
     super(0,0);
     this.tileNum = tileNum;
+    this.pathPoint = pathPoint;
   }
   
   void setVal(int tileVal) {
@@ -23,6 +26,10 @@ class Tile extends GameObject {
   
   int getVal() {
      return tileVal; 
+  }
+  
+  boolean getPP() {
+    return pathPoint; 
   }
   
   void setLayer(int layer) {
@@ -34,15 +41,28 @@ class Tile extends GameObject {
   }
   
   void update() {
-    super.pos.x = (tileNum%25) * 20;
-    super.pos.y = (floor(tileNum/25)) * 20;
+    pos.x = ((tileNum%25) * 20) + tiles.get(0).width/2;
+    pos.y = ((floor(tileNum/25)) * 20) + tiles.get(0).height/2;
+    
+    if (keyPressed) {
+      if (key == CODED) {
+        if (keyCode == LEFT) {
+          theta -= 0.02f;
+        }
+        
+        if (keyCode == RIGHT) {
+          theta += 0.02f;
+        }
+      }
+    }
   }
   
   void render() {
  
     pushMatrix();
-    translate(super.pos.x, super.pos.y);
-    rotate(super.theta);
+    translate(pos.x, pos.y);
+    rotate(theta);
+    imageMode(CENTER);
     image(tiles.get(tileVal), 0f, 0f);
     popMatrix();
   }
