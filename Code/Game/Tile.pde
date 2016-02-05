@@ -11,13 +11,15 @@ class Tile extends GameObject {
   int layer = 0;
   int x = 0;
   int y = 0;
+  int pointNum;
   
   boolean pathPoint;
   
-  Tile(int tileNum, boolean pathPoint) {
+  Tile(int tileNum, boolean pathPoint, int pointNum) {
     super(0,0);
     this.tileNum = tileNum;
     this.pathPoint = pathPoint;
+    this.pointNum = pointNum;
   }
   
   void setVal(int tileVal) {
@@ -28,8 +30,12 @@ class Tile extends GameObject {
      return tileVal; 
   }
   
-  boolean getPP() {
+  boolean isPP() {
     return pathPoint; 
+  }
+  
+  int getPP() {
+    return pointNum;
   }
   
   void setLayer(int layer) {

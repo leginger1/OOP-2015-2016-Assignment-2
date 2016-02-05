@@ -28,11 +28,11 @@ class BasicCreep extends Enemy{
   
   void update() {
     
+     move();
+    
     if(pos.x < (target.x + speed) && pos.x > (target.x - speed) && pos.y < (target.y + speed) && pos.y > (target.y - speed)) {
         nextPoint();
     }
-    
-    move();
     
     theta = atan2(vel.y,vel.x) - HALF_PI;
     

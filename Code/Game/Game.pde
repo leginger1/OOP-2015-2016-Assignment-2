@@ -11,7 +11,7 @@ void setup() {
   size(500,500);
   m = new Map();
   m.loadMap("maps\\map1.txt");
-  path1 = m.getPath();
+  path1 = m.loadPath();
   
   gameObjects.add(new BasicCreep(random(width),random(height),path1));
   gameObjects.add(new BasicCreep(random(width),random(height),path1));
@@ -57,7 +57,7 @@ void draw() {
           if ((bullet.pos.x < 0 || bullet.pos.x > width) && (bullet.pos.y < 0 || bullet.pos.y > height)) {
             gameObjects.remove(bullet);
             missed++;
-            println("Bullet Missed! Number: " + missed + "\n");
+            //println("Bullet Missed! Number: " + missed + "\n");
           }
         }
       }

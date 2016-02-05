@@ -19,7 +19,29 @@ class Map {
   }
   
   //Getting the path from the map
-  ArrayList<PathPoint> getPath() {
+  ArrayList<PathPoint> loadPath() {
+    int numPoints = 0;
+    for (int i = 0; i < tiles.size(); i++) {
+      if (tiles.get(i).isPP()) {
+        numPoints++;
+      }
+    }
+   
+    int curPoint = 0;
+    while (curPoint < numPoints) {
+      for(int i = 0; i < tiles.size(); i++){
+        Tile t = tiles.get(i);
+        if (t.isPP() == true) {
+          t.update();
+          if (t.getPP() == curPoint) {
+            println(curPoint + ": " + t.pos.x + " "  + t.pos.y);
+            PathPoint p = new PathPoint(t.pos.x,t.pos.y);
+            path.add(p);
+            curPoint++;
+          }
+        }
+      }
+    }
     return path; 
   }
   
@@ -46,9 +68,20 @@ class Map {
         String[] data = split(cols[j],",");
         
         int tileVal = parseInt(data[0]);//Converting strings to ints
-        boolean pathPoint = parseBoolean(data[1]);//Converting string to boolean
+        boolean pathPoint;
+        int loc;
         
-        Tile tile = new Tile(tileNum,pathPoint);//Creating new tile
+        println(data[1].isEmpty());
+        
+        if (data[1].isEmpty() == false) {
+          loc = parseInt(data[1]);
+          pathPoint = true;
+        } else {
+          pathPoint = false;
+          loc = 0;
+        }
+        
+        Tile tile = new Tile(tileNum,pathPoint,loc);//Creating new tile
         //Setting the value and layer of tile
         tile.setVal(tileVal);
         tile.setSheet(t);
@@ -102,15 +135,9 @@ class Map {
   
   //Displaying the map on the screen
   void render() {
-      for(int i = 0; i < tiles.size(); i++){
-        Tile t = tiles.get(i);
-        t.update();
-        if (t.getPP()) {
-          PathPoint p = new PathPoint(t.pos.x,t.pos.y);
-          path.add(p);
-        }
-        tiles.get(i).render();
-      }
+    for (int i = 0; i < tiles.size(); i++) {
+      tiles.get(i).update();
+      tiles.get(i).render();
+    }
   }
-    
 }

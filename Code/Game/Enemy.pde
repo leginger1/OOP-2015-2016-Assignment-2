@@ -4,13 +4,17 @@ abstract class Enemy extends GameObject{
   //Normal HP, HP with mod, HP mod
   float hp, curHP, hpMod;
   
-  //
+  //Normal speed and speed mod
   float speed, speedMod;
   
+  //Normal armor and armor mod
   float armor, armorMod;
   
+  //Arraylist to hold the path to follow
   ArrayList<PathPoint> path;
-  int curPoint = 0;
+  
+  //The current point the enemy is at
+  int curPoint = -1;
   
   //Constructor
   Enemy(float x, float y, ArrayList<PathPoint> path) {
