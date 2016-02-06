@@ -13,10 +13,13 @@ void setup() {
   m.loadMap("maps\\map1.txt");
   path1 = m.loadPath();
   
-  gameObjects.add(new BasicCreep(random(width),random(height),path1));
-  gameObjects.add(new BasicCreep(random(width),random(height),path1));
+  //gameObjects.add(new BasicCreep(path1.get(0).getX(),path1.get(0).getY(),path1));
   
+  gameObjects.add(new BasicTower(width/2,height/4));
   gameObjects.add(new BasicTower(width/2,height/2));
+  gameObjects.add(new BasicTower(width/2,height-height/4));
+  
+  gameObjects.add(new BaseTower(width-10,height-10));
   
   missed = 0;
 }
@@ -26,7 +29,11 @@ void draw() {
   background(255);
   m.render();
   //println(frameRate);
-
+  
+  if (mousePressed == true) {
+    gameObjects.add(new BasicCreep(path1.get(0).getX(),path1.get(0).getY(),path1));
+  }
+  
   //Going through every game object
   for(int i = 0; i < gameObjects.size(); i++) {
     //Checking for Enemy objects
@@ -85,6 +92,22 @@ void draw() {
             ((Tower)tower).shoot(tower.pos.x,tower.pos.y,enemy.pos.x+(enemy.vel.x*t),enemy.pos.y+(enemy.vel.y*t));
             tower.setTarget(enemy.pos.x+(enemy.vel.x*t),enemy.pos.y+(enemy.vel.y*t));
             break;
+          }
+        }
+      }
+    }else if (gameObjects.get(i) instanceof BaseTower) {
+      BaseTower b = ((BaseTower)gameObjects.get(i));
+      
+      b.update();
+      b.render();
+      
+      for (int j = 0; j < gameObjects.size(); j++) {
+        if (gameObjects.get(j) instanceof BasicCreep) {
+          BasicCreep c = ((BasicCreep)gameObjects.get(j));
+          
+          if (PVector.dist(c.pos, b.pos) < 10) {
+            b.damage(1);
+            gameObjects.remove(c);
           }
         }
       }
