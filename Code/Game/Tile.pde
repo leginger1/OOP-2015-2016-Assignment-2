@@ -1,10 +1,10 @@
 /*
   This class will be for all the tiles in the game.
-  Ground, buildings, etc
-*/
+ Ground, buildings, etc
+ */
 
 class Tile extends GameObject {
-  
+
   ArrayList<PImage> tiles;
   int tileNum;
   int tileVal = 0;
@@ -12,59 +12,59 @@ class Tile extends GameObject {
   int x = 0;
   int y = 0;
   int pointNum;
-  
+
   boolean pathPoint;
-  
+
   Tile(int tileNum, boolean pathPoint, int pointNum) {
-    super(0,0);
+    super(0, 0);
     this.tileNum = tileNum;
     this.pathPoint = pathPoint;
     this.pointNum = pointNum;
   }
-  
+
   void setVal(int tileVal) {
     this.tileVal = tileVal;
   }
-  
+
   int getVal() {
-     return tileVal; 
+    return tileVal;
   }
-  
+
   boolean isPP() {
-    return pathPoint; 
+    return pathPoint;
   }
-  
+
   int getPP() {
     return pointNum;
   }
-  
+
   void setLayer(int layer) {
     this.layer = layer;
   }
-  
+
   void setSheet(ArrayList<PImage> tiles) {
     this.tiles = tiles;
   }
-  
+
   void update() {
     pos.x = ((tileNum%25) * 20) + tiles.get(0).width/2;
     pos.y = ((floor(tileNum/25)) * 20) + tiles.get(0).height/2;
-    
+
     if (keyPressed) {
       if (key == CODED) {
         if (keyCode == LEFT) {
           theta -= 0.02f;
         }
-        
+
         if (keyCode == RIGHT) {
           theta += 0.02f;
         }
       }
     }
   }
-  
+
   void render() {
- 
+
     pushMatrix();
     translate(pos.x, pos.y);
     rotate(theta);

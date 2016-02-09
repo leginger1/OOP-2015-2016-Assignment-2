@@ -1,4 +1,4 @@
-//Interface for applying effects to enemys
+//Interface for appling effects to enemys
 interface Effect {
   void applyTo(GameObject go);
 }
