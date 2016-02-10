@@ -6,7 +6,7 @@ class BaseTower extends Tower {
   BaseTower(float x, float y) {
     super(x, y);
     hpMod = 1;
-    hp = curHP = 100;
+    hp = curHP = 10;
   }
 
   //Applying damage to the tower

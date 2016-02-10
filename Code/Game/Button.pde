@@ -31,11 +31,11 @@ class Button extends GameObject {
       hover = true;
       if (mousePressed) {
         pressed = true;
-      } else {
-        pressed = false;
+        unpressed = false;
       }
     } else {
       hover = false;
+      pressed = false;
     }
   }
 
