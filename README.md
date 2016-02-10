@@ -30,3 +30,15 @@ During the week or two break over christmas I was re-thinking the game that im g
 move away from the town building game idea a bit and go with a tower defence instead. However I am not completely
 forgetting about the town builder. I hope to try and bring some aspects of town building as a way of upgrading the
 towers and such. 
+
+##Update 3
+Since the laste update many things have been taken out of the game. It is very bare bones tower defence. The towers
+can track and shoot enemys. Enemys will follow a selected path and damage the base tower if they reach it. TRhe map
+and paths are loaded in from a map file. There are button and text area classes for menus. There are different game
+states that allow differnt menus to be swaped between and such aswell as pausing the game. Each of the menus and main
+game has its own array list so that you can stop updating one while in another menu. Aswell as other things...
+
+![MainMenu] (/images/mainMenu.png)
+![MainGame] (/images/mainGame.png)
+![PauseMenu] (/images/pauseMenu.png)
+![EndScreen] (/images/endScreen.png)
