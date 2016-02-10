@@ -6,6 +6,7 @@ int gameState;
 
 ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 ArrayList<GameObject> mainMenu = new ArrayList<GameObject>();
+ArrayList<GameObject> pauseMenu = new ArrayList<GameObject>();
 
 ArrayList<PathPoint> path1 = new ArrayList<PathPoint>();
 
@@ -27,6 +28,15 @@ void setup() {
   mainMenu.add(new Button(width/2, height/3 + 200, 150, 25, 15, 6, "Quit"));
 
   gameObjects.add(new BaseTower(path1.get(path1.size()-1).getX(), path1.get(path1.size()-1).getY()));
+  gameObjects.add(new Button(width/8, height - 30, 100, 25, 15, 1, "Towers"));
+  gameObjects.add(new Button(width/8*3, height - 30, 100, 25, 15, 2, "Other"));
+  gameObjects.add(new Button(width/8*5, height - 30, 100, 25, 15, 3, "Blarg"));
+  gameObjects.add(new Button(width/8*7, height - 30, 100, 25, 15, 4, "Menu"));
+  
+  pauseMenu.add(new TextArea(width/2, height/5, 25, "Game Paused"));
+  pauseMenu.add(new Button(width/2, height/3, 150, 25, 15, 2, "Resume"));
+  pauseMenu.add(new Button(width/2, height/3 + 50, 150, 25, 15, 3, "About"));
+  pauseMenu.add(new Button(width/2, height/3 + 200, 150, 25, 15, 6, "Quit"));
 
   missed = 0;
 }
@@ -40,8 +50,7 @@ void draw() {
 
   switch (gameState) {
     //Main menu
-  case 1:
-    { 
+  case 1:{ 
       stroke(0);
       strokeWeight(2);
       fill(255);
@@ -62,7 +71,7 @@ void draw() {
             //Resseting game state if going from main menu
             if (gameState == 2) {
               for (int j = 0; j < gameObjects.size(); j++) {
-                if (!(gameObjects.get(j) instanceof BaseTower)) {
+                if (!(gameObjects.get(j) instanceof BaseTower) && !(gameObjects.get(j) instanceof Button)) {
                   gameObjects.remove(j);
                 }
               }
@@ -80,8 +89,7 @@ void draw() {
 
 
     //Play the game
-  case 2:
-    {
+  case 2:{
       println("Blarg");
       m.render();
 
@@ -184,6 +192,40 @@ void draw() {
               }
             }
           }
+        } else if (gameObjects.get(i) instanceof Button) {
+          Button b = ((Button)gameObjects.get(i));
+          
+          b.update();
+          b.render();
+          
+          int v = b.getVal();
+          
+          switch(v) {
+            case 1:{
+              
+              break;
+            }
+            
+            case 2:{
+              
+              break;
+            }
+            
+            case 3:{
+              
+              break;
+            }
+            
+            case 4:{
+              gameState = 7;
+              break;
+            }
+            
+            default:{
+              println("Something done fucked up!!");
+              break;
+            }
+          }
         }
       }
       break;
@@ -215,8 +257,40 @@ void draw() {
 
     //Game paused
   case 7:{
+    stroke(0);
+    strokeWeight(2);
+    fill(255);
+    rectMode(CORNER);
+    rect(0,0,width-1,height-1);
+    strokeWeight(1);
     
-      break;
+    for (int i = 0; i < mainMenu.size(); i++) {
+      if (mainMenu.get(i) instanceof Button) {
+        GameObject b = mainMenu.get(i);
+
+        b.update();
+        b.render();
+
+        if (((Button)b).getPress()) {
+          gameState = ((Button)b).getVal();
+
+          //Resseting game state if going from main menu
+          if (gameState == 2) {
+            for (int j = 0; j < gameObjects.size(); j++) {
+              if (!(gameObjects.get(j) instanceof BaseTower) && !(gameObjects.get(j) instanceof Button)) {
+                gameObjects.remove(j);
+              }
+            }
+          }
+        }
+      } else if (mainMenu.get(i) instanceof TextArea) {
+        GameObject b = mainMenu.get(i);
+        
+        b.update();
+        b.render();
+      }
+    }
+    break;
     }
 
   default:{
