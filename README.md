@@ -38,7 +38,7 @@ and paths are loaded in from a map file. There are button and text area classes 
 states that allow differnt menus to be swaped between and such aswell as pausing the game. Each of the menus and main
 game has its own array list so that you can stop updating one while in another menu. Aswell as other things...
 
-![MainMenu] (/images/mainMenu.png)
-![MainGame] (/images/mainGame.png)
-![PauseMenu] (/images/pauseMenu.png)
-![EndScreen] (/images/endScreen.png)
+![MainMenu] (/images/mainMenu.PNG)
+![MainGame] (/images/mainGame.PNG)
+![PauseMenu] (/images/pauseMenu.PNG)
+![EndScreen] (/images/endScreen.PNG)
