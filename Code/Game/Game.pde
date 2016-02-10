@@ -113,7 +113,7 @@ void draw() {
   case 2:{
       m.render();
       
-      if (frameCount % 15 == 0) {
+      if (frameCount % 60 == 0) {
         gameObjects.add(new BasicCreep(path1.get(0).getX(),path1.get(0).getY(),path1)); 
       }
       
@@ -270,7 +270,7 @@ void draw() {
         placedTower = false;
       }
       
-      if (mousePressed && placeTower) {
+      if (mousePressed && placeTower && mouseY < height-50) {
         placeTower = false;
         if (!placedTower) {
           placedTower = true;
